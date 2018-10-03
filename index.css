@@ -88,8 +88,10 @@
   background-color: pink;
   font-family: Helvetica;
   margin: 0 15px;
-  text-align: center;
   border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .box h3 {
