@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gotham';
+  font-weight: 400;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("fonts/bebasneue.otf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Gotham";
+    src: url("fonts/gothambook.otf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Gotham";
+    src: url("fonts/gothamlight.otf") format("opentype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Gotham";
+    src: url("fonts/gothammed.otf") format("opentype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Gotham";
+    src: url("fonts/gothambold.otf") format("opentype");
+    font-weight: 600;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("fonts/FuturaStd-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("fonts/FuturaStd-Light.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaStd";
+  src: url("fonts/FuturaStd-Bold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 1fr 0.15fr 0.25fr
+}
+
+.albumsec {
+  display: flex;
+  justify-content: center;
+  padding-top: 5vh;
+}
+
+#albumart {
+  height: 600px;
+  width: 600px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.songinfosec {
+  text-align: center;
+  font-weight: 400;
+}
+
+.box {
+  width: 150px;
+  height: 50px;
+  background-color: pink;
+  font-family: Helvetica;
+  margin: 0 15px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.box h3 {
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 10px;
+}
+
+.jukeboxsec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
