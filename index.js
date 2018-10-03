@@ -2,6 +2,7 @@
 var playbutton = document.getElementById('playbutton');
 var pausebutton = document.getElementById('pausebutton');
 var nextbutton = document.getElementById('nextbutton');
+var backbutton = document.getElementById('backbutton');
 
 var albumart = document.getElementById('albumart');
 var songName = document.getElementById('songname');
@@ -46,6 +47,7 @@ class Jukebox {
 
   // Plays the current trackNum song
   playCurrent() {
+
     this.currentSong.play();
     albumart.style.backgroundImage = "url(" + this.songArchive[this.trackNum].albumart + ")";
     songName.innerText = this.songArchive[this.trackNum].songtitle;
@@ -53,9 +55,52 @@ class Jukebox {
     albumName.innerText = this.songArchive[this.trackNum].album;
   }
 
+  // TESTING AUTO-PLAY ON END
+
+  // this.currentSong.onended = function() {
+  //   this.newNum = 0;
+  //   console.log('onended works');
+  //   this.newNum += 1;
+  //   console.log(this.newNum);
+  //   console.log(this.songArchive)
+  //   this.currentSong = new Audio(this.songArchive[this.newNum].url);
+  //   this.currentSong.play();
+  // }
+
+  // songEndTransition() {
+  //   this.trackNum += 1;
+  //   this.currentSong = new Audio(this.songArchive[this.newNum].url);
+  //   this.currentSong.play();
+  //   console.log(this.trackNum);
+  // }
+
   // Pause the current trackNum song
   pauseCurrent() {
     this.currentSong.pause();
+  }
+
+  previousSong() {
+      this.currentSong.pause();
+      this.currentSong.currentTime = 0;
+      this.trackNum--;
+
+      if(this.trackNum < 0) {
+        this.trackNum = this.songArchive.length - 1;
+        this.currentSong = new Audio(this.songArchive[this.trackNum].url);
+        this.currentSong.play()
+        albumart.style.backgroundImage = "url(" + this.songArchive[this.trackNum].albumart + ")";
+        songName.innerText = this.songArchive[this.trackNum].songtitle;
+        artistName.innerText = this.songArchive[this.trackNum].artist;
+        albumName.innerText = this.songArchive[this.trackNum].album;
+      }
+      else {
+        this.currentSong = new Audio(this.songArchive[this.trackNum].url);
+        this.currentSong.play();
+        albumart.style.backgroundImage = "url(" + this.songArchive[this.trackNum].albumart + ")";
+        songName.innerText = this.songArchive[this.trackNum].songtitle;
+        artistName.innerText = this.songArchive[this.trackNum].artist;
+        albumName.innerText = this.songArchive[this.trackNum].album;
+      }
   }
 
   // Pauses the current trackNum song, sets the time to zero, plays trackNum+1
@@ -86,6 +131,12 @@ class Jukebox {
 
 var virtJukebox = new Jukebox();
 
+// // Initial styling for the first song of the playlist
+// albumart.style.backgroundImage = "url(" + songArchive[0].albumart + ")";
+// songName.innerText = songArchive[0].songtitle;
+// artistName.innerText = songArchive[0].artist;
+// albumName.innerText = songArchive[0].album;
+
 playbutton.addEventListener('click', function() {
   virtJukebox.playCurrent();
 });
@@ -94,6 +145,14 @@ pausebutton.addEventListener('click', function() {
   virtJukebox.pauseCurrent();
 });
 
+backbutton.addEventListener('click', function() {
+  virtJukebox.previousSong();
+})
+
 nextbutton.addEventListener('click', function() {
   virtJukebox.nextSong();
 })
+
+// virtJukebox.currentSong.addEventListener('ended', function() {
+//   virtJukebox.nextSong();
+// })
