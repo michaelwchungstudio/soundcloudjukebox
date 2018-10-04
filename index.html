@@ -11,10 +11,18 @@
 
       <!-- Row 1: Album Art -->
       <div class='albumsec'>
-        <div id='vinylcircle'>
-          <div id='albumart'>
-            <div id='vinylhole'></div>
+        <div class='column' id='columnL'>
+          <div id='backbutton'></div>
+        </div>
+        <div id='vinylsec'>
+          <div id='vinylcircle'>
+            <div id='albumart'>
+              <div id='vinylhole'></div>
+            </div>
           </div>
+        </div>
+        <div class='column' id='columnR'>
+          <div id='nextbutton'></div>
         </div>
       </div>
 
@@ -25,19 +33,16 @@
         <h2 class='songinfotext' id='albumname'></h2>
       </div>
 
-      <!-- Row 3: "Jukebox" -->
-      <div class='jukeboxsec'>
-        <div class='box' id='backbutton'>
-          <h3 id='nexttext'>BACK</h3>
+      <!-- Row 3: "STOP // PLAY // PAUSE" -->
+      <div class='controlsec'>
+        <div class='iconcircle' id='circleL'>
+          <div class='controlicons' id='stopbutton'></div>
         </div>
-        <div class='box' id='playbutton'>
-          <h3 id='playtext'>PLAY</h3>
+        <div class='iconcircle' id='circleC'>
+          <div class='controlicons' id='playbutton'></div>
         </div>
-        <div class='box' id='pausebutton'>
-          <h3 id='pausetext'>PAUSE</h3>
-        </div>
-        <div class='box' id='nextbutton'>
-          <h3 id='nexttext'>NEXT</h3>
+        <div class='iconcircle' id='circleR'>
+          <div class='controlicons' id='pausebutton'></div>
         </div>
       </div>
 

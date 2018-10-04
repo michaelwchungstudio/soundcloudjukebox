@@ -1,6 +1,7 @@
 // Establishing variables linking to HTML elements
-var playbutton = document.getElementById('playbutton');
-var pausebutton = document.getElementById('pausebutton');
+var stopbutton = document.getElementById('circleL');
+var playbutton = document.getElementById('circleC');
+var pausebutton = document.getElementById('circleR');
 var nextbutton = document.getElementById('nextbutton');
 var backbutton = document.getElementById('backbutton');
 
@@ -47,32 +48,24 @@ class Jukebox {
 
   // Plays the current trackNum song
   playCurrent() {
-
     this.currentSong.play();
     albumart.style.backgroundImage = "url(" + this.songArchive[this.trackNum].albumart + ")";
     songName.innerText = this.songArchive[this.trackNum].songtitle;
     artistName.innerText = this.songArchive[this.trackNum].artist;
     albumName.innerText = this.songArchive[this.trackNum].album;
+
+    var placeholderSong = this;
+
+    this.currentSong.onended = function() {
+      placeholderSong.nextSong();
+    }
   }
 
-  // TESTING AUTO-PLAY ON END
-
-  // this.currentSong.onended = function() {
-  //   this.newNum = 0;
-  //   console.log('onended works');
-  //   this.newNum += 1;
-  //   console.log(this.newNum);
-  //   console.log(this.songArchive)
-  //   this.currentSong = new Audio(this.songArchive[this.newNum].url);
-  //   this.currentSong.play();
-  // }
-
-  // songEndTransition() {
-  //   this.trackNum += 1;
-  //   this.currentSong = new Audio(this.songArchive[this.newNum].url);
-  //   this.currentSong.play();
-  //   console.log(this.trackNum);
-  // }
+  // Pauses the current trackNum song and sets it to play at the beginning
+  stopSong() {
+    this.currentSong.pause();
+    this.currentSong.currentTime = 0;
+  }
 
   // Pause the current trackNum song
   pauseCurrent() {
@@ -136,6 +129,12 @@ var virtJukebox = new Jukebox();
 // songName.innerText = songArchive[0].songtitle;
 // artistName.innerText = songArchive[0].artist;
 // albumName.innerText = songArchive[0].album;
+window.addEventListener('load', function() {
+  albumart.style.backgroundImage = "url(" + virtJukebox.songArchive[virtJukebox.trackNum].albumart + ")";
+  songName.innerText = virtJukebox.songArchive[virtJukebox.trackNum].songtitle;
+  artistName.innerText = virtJukebox.songArchive[virtJukebox.trackNum].artist;
+  albumName.innerText = virtJukebox.songArchive[virtJukebox.trackNum].album;
+})
 
 playbutton.addEventListener('click', function() {
   virtJukebox.playCurrent();
@@ -151,6 +150,10 @@ backbutton.addEventListener('click', function() {
 
 nextbutton.addEventListener('click', function() {
   virtJukebox.nextSong();
+})
+
+stopbutton.addEventListener('click', function() {
+  virtJukebox.stopSong();
 })
 
 // virtJukebox.currentSong.addEventListener('ended', function() {

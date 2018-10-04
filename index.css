@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: 'Gotham';
   font-weight: 400;
+  font-size: 14px;
 }
 
 @font-face {
@@ -61,7 +62,7 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 1fr 0.15fr 0.25fr
+  grid-template-rows: 1.15fr 0.2fr 0.2fr
 }
 
 /* .wrapper div {
@@ -69,10 +70,27 @@
 } */
 
 .albumsec {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+}
+
+/* .albumsec div {
+  border: 1px solid;
+} */
+
+.column {
+  display: flex;
+  align-items: center;
+}
+
+#columnL {
+  position: relative;
+}
+
+#vinylsec {
   display: flex;
   justify-content: center;
-  padding-top: 3vh;
-  padding-botom: 2vh;
+  align-items: center;
 }
 
 #vinylcircle {
@@ -113,39 +131,112 @@
   border-bottom: 1px solid;
 }
 
+#backbutton {
+  background-image: url("icons/ios-arrow-dropleft.svg");
+  height: 50px;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+
+#backbutton:hover {
+  background-image: url("icons/ios-arrow-dropleft-circle.svg");
+}
+
+#nextbutton {
+  background-image: url("icons/ios-arrow-dropright.svg");
+  height: 50px;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+#nextbutton:hover {
+  background-image: url("icons/ios-arrow-dropright-circle.svg");
+}
+
 .songinfosec {
   text-align: center;
   font-weight: 400;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .songinfotext {
-  margin: 3px 0;
+  margin: 3.5px 0;
+  font-size: 1.25em;
 }
 
-.box {
-  width: 150px;
-  height: 50px;
-  background-color: pink;
-  font-family: Helvetica;
-  margin: 0 15px;
-  border: 1px solid black;
+#songname {
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+.controlsec {
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.box h3 {
-  font-weight: 300;
-  font-size: 14px;
-  letter-spacing: 10px;
+.iconcircle {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.jukeboxsec {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#circleL {
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+.iconcircle:hover {
+  background-color: black;
+}
+
+#circleL:hover > #stopbutton {
+  filter: invert(100%);
+}
+
+#circleC {
+  cursor: pointer;
+}
+
+#circleC:hover > #playbutton {
+  filter: invert(100%);
+}
+
+#circleR {
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+#circleR:hover > #pausebutton {
+  filter: invert(100%);
+}
+
+#stopbutton {
+  height: 21px;
+  width: 21px;
+  background-color: black;
+}
+
+#playbutton {
+  background-image: url("icons/md-play.svg");
+  height: 35px;
+  width: 35px;
+  margin-left: 9px;
+}
+
+#pausebutton {
+  background-image: url("icons/md-pause.svg");
+  height: 30px;
+  width: 30px;
 }
