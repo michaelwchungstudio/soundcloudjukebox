@@ -54,8 +54,12 @@ class Jukebox {
     artistName.innerText = this.songArchive[this.trackNum].artist;
     albumName.innerText = this.songArchive[this.trackNum].album;
 
+    // This placeholder variable is created to store the vale of the current Jukebox object (this)
     var placeholderSong = this;
 
+    // When this event handler is fired, 'this' is NOT within the scope
+    // "Async - event handlers do not run in a sequential order", they run when an event is fired
+    // https://stackoverflow.com/questions/5490448/how-do-i-pass-the-this-context-into-an-event-handler
     this.currentSong.onended = function() {
       placeholderSong.nextSong();
     }
@@ -72,6 +76,7 @@ class Jukebox {
     this.currentSong.pause();
   }
 
+  // Plays the previous song by rewinding one track number
   previousSong() {
       this.currentSong.pause();
       this.currentSong.currentTime = 0;
@@ -93,6 +98,12 @@ class Jukebox {
         songName.innerText = this.songArchive[this.trackNum].songtitle;
         artistName.innerText = this.songArchive[this.trackNum].artist;
         albumName.innerText = this.songArchive[this.trackNum].album;
+      }
+
+      var placeholderSong = this;
+
+      this.currentSong.onended = function() {
+        placeholderSong.nextSong();
       }
   }
 
@@ -119,16 +130,19 @@ class Jukebox {
       artistName.innerText = this.songArchive[this.trackNum].artist;
       albumName.innerText = this.songArchive[this.trackNum].album;
     }
+
+    var placeholderSong = this;
+
+    this.currentSong.onended = function() {
+      placeholderSong.nextSong();
+    }
   }
 }
 
+// Jukebox object created!
 var virtJukebox = new Jukebox();
 
-// // Initial styling for the first song of the playlist
-// albumart.style.backgroundImage = "url(" + songArchive[0].albumart + ")";
-// songName.innerText = songArchive[0].songtitle;
-// artistName.innerText = songArchive[0].artist;
-// albumName.innerText = songArchive[0].album;
+// Upon load, the first song in the "playlist" will be displayed on the vinyl and with song information
 window.addEventListener('load', function() {
   albumart.style.backgroundImage = "url(" + virtJukebox.songArchive[virtJukebox.trackNum].albumart + ")";
   songName.innerText = virtJukebox.songArchive[virtJukebox.trackNum].songtitle;
@@ -136,6 +150,7 @@ window.addEventListener('load', function() {
   albumName.innerText = virtJukebox.songArchive[virtJukebox.trackNum].album;
 })
 
+// Event listeners for the buttons to trigger the functions of the Jukebox object
 playbutton.addEventListener('click', function() {
   virtJukebox.playCurrent();
 });
@@ -155,7 +170,3 @@ nextbutton.addEventListener('click', function() {
 stopbutton.addEventListener('click', function() {
   virtJukebox.stopSong();
 })
-
-// virtJukebox.currentSong.addEventListener('ended', function() {
-//   virtJukebox.nextSong();
-// })
