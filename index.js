@@ -10,6 +10,8 @@ var songName = document.getElementById('songname');
 var artistName = document.getElementById('artistname');
 var albumName = document.getElementById('albumname');
 
+var progressbar = document.getElementById('progressbar');
+
 // Song class with five parameters - title, artist, album, album art url, song url
 class Song {
   constructor(songtitle, artist, album, albumart, url) {
@@ -55,14 +57,19 @@ class Jukebox {
     albumName.innerText = this.songArchive[this.trackNum].album;
 
     // This placeholder variable is created to store the vale of the current Jukebox object (this)
-    var placeholderSong = this;
+    var placeholderJukebox = this;
 
     // When this event handler is fired, 'this' is NOT within the scope
     // "Async - event handlers do not run in a sequential order", they run when an event is fired
     // https://stackoverflow.com/questions/5490448/how-do-i-pass-the-this-context-into-an-event-handler
     this.currentSong.onended = function() {
-      placeholderSong.nextSong();
+      placeholderJukebox.nextSong();
     }
+
+    // Event listener for the song that, upon timeupdate, will update the value of the progress bar to what percentage it is at
+    this.currentSong.addEventListener('timeupdate', function() {
+      progressbar.value = ((placeholderJukebox.currentSong.currentTime / placeholderJukebox.currentSong.duration));
+    })
   }
 
   // Pauses the current trackNum song and sets it to play at the beginning
@@ -100,11 +107,15 @@ class Jukebox {
         albumName.innerText = this.songArchive[this.trackNum].album;
       }
 
-      var placeholderSong = this;
+      var placeholderJukebox = this;
 
       this.currentSong.onended = function() {
-        placeholderSong.nextSong();
+        placeholderJukebox.nextSong();
       }
+
+      this.currentSong.addEventListener('timeupdate', function() {
+        progressbar.value = ((placeholderJukebox.currentSong.currentTime / placeholderJukebox.currentSong.duration));
+      })
   }
 
   // Pauses the current trackNum song, sets the time to zero, plays trackNum+1
@@ -131,11 +142,15 @@ class Jukebox {
       albumName.innerText = this.songArchive[this.trackNum].album;
     }
 
-    var placeholderSong = this;
+    var placeholderJukebox = this;
 
     this.currentSong.onended = function() {
-      placeholderSong.nextSong();
+      placeholderJukebox.nextSong();
     }
+
+    this.currentSong.addEventListener('timeupdate', function() {
+      progressbar.value = ((placeholderJukebox.currentSong.currentTime / placeholderJukebox.currentSong.duration));
+    })
   }
 }
 
