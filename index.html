@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Jukebox</title>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <!-- Wrapper: Grid of three rows -->
@@ -33,11 +35,11 @@
       <div class='songinfosec'>
         <h2 class='songinfotext' id='songname'></h2>
         <h2 class='songinfotext' id='artistname'></h2>
-        <h2 class='songinfotext' id='albumname'></h2>
+        <img class='songinfotext' id='scloudheart' src="img/soundcloudHeart.jpg"></img><h2 class='songinfotext' id='likescount'></h2>
       </div>
 
       <div class='progressbarsec'>
-        <progress id="progressbar" value="0" max="1" style="width: 33vw;"></progress>
+        <progress id="progressbar" value="0" max="1" style="width: 30vw;"></progress>
       </div>
 
       <!-- Row 3: "STOP // PLAY // PAUSE" -->
