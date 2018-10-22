@@ -4,6 +4,8 @@ SC.initialize({
 });
 
 // Establishing variables linking to HTML elements
+var artistInput = document.getElementById('artistInput');
+var searchButton = document.getElementById('searchIcon');
 var stopbutton = document.getElementById('circleL');
 var playbutton = document.getElementById('circleC');
 var pausebutton = document.getElementById('circleR');
@@ -108,6 +110,32 @@ SC.get("/tracks/",{
 });
 
 console.log(virtJukebox.infoArchive);
+
+// Event listener for search
+searchButton.addEventListener('click', function() {
+virtJukebox.stopSong();
+// Clear songs and information
+virtJukebox.trackNum = 0;
+virtJukebox.infoArchive = [];
+virtJukebox.songArchive = [];
+
+SC.get("/tracks/",{
+	q: artistInput.value
+}).then(function(response){
+  var songInfo = response;
+
+  for(let i = 0; i < songInfo.length; i++) {
+    virtJukebox.infoArchive.push(songInfo[i]);
+
+    sequence = sequence.then(function() {
+      return SC.stream("/tracks/" + songInfo[i].id).then(function(stream){
+        virtJukebox.songArchive.push(stream);
+        console.log(songInfo[i]);
+      })
+    })
+  }
+})
+});
 
 // Event listeners for the buttons to trigger the functions of the Jukebox object
 playbutton.addEventListener('click', function() {

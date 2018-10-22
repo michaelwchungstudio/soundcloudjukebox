@@ -8,53 +8,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
-    <!-- Wrapper: Grid of three rows -->
     <div class='wrapper'>
-
-      <!-- Row 1: Album Art split into three columns + back/next buttons -->
-      <div class='albumsec'>
-        <!-- left column // BACK -->
-        <div class='column' id='columnL'>
-          <div id='backbutton'></div>
+      <div class='searchWrapper'>
+        <div id='searchArea'>
+          <input type='text' id='artistInput' value='artist search'>
+          <div id='searchIcon'></div>
         </div>
-        <!-- Center column holds the vinyl elements and the dynamic album art -->
-        <div id='vinylsec'>
-          <div id='vinylcircle'>
-            <div id='albumart'>
-              <div id='vinylhole'></div>
+      </div>
+      <!-- Wrapper: Grid of three rows -->
+      <div class='infoWrapper'>
+        <!-- Row 1: Album Art split into three columns + back/next buttons -->
+        <div class='albumsec'>
+          <!-- left column // BACK -->
+          <div class='column' id='columnL'>
+            <div id='backbutton'></div>
+          </div>
+          <!-- Center column holds the vinyl elements and the dynamic album art -->
+          <div id='vinylsec'>
+            <div id='vinylcircle'>
+              <div id='albumart'>
+                <div id='vinylhole'></div>
+              </div>
             </div>
           </div>
+          <!-- right column // NEXT -->
+          <div class='column' id='columnR'>
+            <div id='nextbutton'></div>
+          </div>
         </div>
-        <!-- right column // NEXT -->
-        <div class='column' id='columnR'>
-          <div id='nextbutton'></div>
+
+        <!-- Row 2: Song Information -->
+        <div class='songinfosec'>
+          <h2 class='songinfotext' id='songname'></h2>
+          <h2 class='songinfotext' id='artistname'></h2>
+          <img class='songinfotext' id='scloudheart' src="img/soundcloudHeart.jpg"></img><h2 class='songinfotext' id='likescount'></h2>
+        </div>
+
+        <div class='progressbarsec'>
+          <progress id="progressbar" value="0" max="1" style="width: 30vw;"></progress>
+        </div>
+
+        <!-- Row 3: "STOP // PLAY // PAUSE" -->
+        <div class='controlsec'>
+          <div class='iconcircle' id='circleL'>
+            <div class='controlicons' id='stopbutton'></div>
+          </div>
+          <div class='iconcircle' id='circleC'>
+            <div class='controlicons' id='playbutton'></div>
+          </div>
+          <div class='iconcircle' id='circleR'>
+            <div class='controlicons' id='pausebutton'></div>
+          </div>
         </div>
       </div>
-
-      <!-- Row 2: Song Information -->
-      <div class='songinfosec'>
-        <h2 class='songinfotext' id='songname'></h2>
-        <h2 class='songinfotext' id='artistname'></h2>
-        <img class='songinfotext' id='scloudheart' src="img/soundcloudHeart.jpg"></img><h2 class='songinfotext' id='likescount'></h2>
-      </div>
-
-      <div class='progressbarsec'>
-        <progress id="progressbar" value="0" max="1" style="width: 30vw;"></progress>
-      </div>
-
-      <!-- Row 3: "STOP // PLAY // PAUSE" -->
-      <div class='controlsec'>
-        <div class='iconcircle' id='circleL'>
-          <div class='controlicons' id='stopbutton'></div>
-        </div>
-        <div class='iconcircle' id='circleC'>
-          <div class='controlicons' id='playbutton'></div>
-        </div>
-        <div class='iconcircle' id='circleR'>
-          <div class='controlicons' id='pausebutton'></div>
-        </div>
-      </div>
-
     </div>
     <script type="text/javascript" src="index.js"></script>
   </body>
