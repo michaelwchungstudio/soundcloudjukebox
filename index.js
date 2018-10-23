@@ -1,6 +1,6 @@
 // API initialization using client_id
 SC.initialize({
-    client_id: 'f665fc458615b821cdf1a26b6d1657f6'
+    client_id: id
 });
 
 // Establishing variables linking to HTML elements
@@ -34,11 +34,13 @@ class Jukebox {
   playCurrent() {
     this.songArchive[this.trackNum].play();
 
-    albumart.style.backgroundImage = "url(" + this.infoArchive[this.trackNum].artwork_url + ")";
-    songName.innerText = this.infoArchive[this.trackNum].title;
-    artistName.innerText = this.infoArchive[this.trackNum].user.username;
-    scloudHeart.style.opacity = "1";
-    likesCount.innerText = this.infoArchive[this.trackNum].likes_count;
+    // albumart.style.backgroundImage = "url(" + this.infoArchive[this.trackNum].artwork_url + ")";
+    // songName.innerText = this.infoArchive[this.trackNum].title;
+    // artistName.innerText = this.infoArchive[this.trackNum].user.username;
+    // scloudHeart.style.opacity = "1";
+    // likesCount.innerText = this.infoArchive[this.trackNum].likes_count;
+
+    morphInfoArtwork(this);
 
     var that = this;
 
@@ -51,6 +53,7 @@ class Jukebox {
     });
   }
 
+  // stops the current song, changes the track number (--), plays that track using playCurrent() function
   previousSong() {
     this.stopSong();
     this.trackNum--;
@@ -64,6 +67,7 @@ class Jukebox {
     }
   }
 
+  // stops the current song, changes the track number (++), plays that track using playCurrent() function
   nextSong() {
     this.stopSong();
     this.trackNum++;
@@ -77,15 +81,35 @@ class Jukebox {
     }
   }
 
+  // pauses the current song and sets the current time to zero
   stopSong() {
     this.songArchive[this.trackNum].pause();
     this.songArchive[this.trackNum].seek(0);
   }
 
+  // pauses the current song (pressing play after will resume!)
   pauseSong() {
     this.songArchive[this.trackNum].pause();
   }
 }
+
+function morphInfoArtwork(jukebox) {
+  albumart.style.backgroundImage = "url(" + jukebox.infoArchive[jukebox.trackNum].artwork_url + ")";
+  songName.innerText = jukebox.infoArchive[jukebox.trackNum].title;
+  artistName.innerText = jukebox.infoArchive[jukebox.trackNum].user.username;
+  scloudHeart.style.opacity = "1";
+  likesCount.innerText = jukebox.infoArchive[jukebox.trackNum].likes_count;
+}
+
+// function morphPlaylist(jukebox) {
+//   for(let i = 0; i < jukebox.infoArchive.length; i++) {
+//
+//
+//
+//   }
+//
+//
+// }
 
 // Jukebox object created!
 var virtJukebox = new Jukebox();
@@ -113,28 +137,39 @@ console.log(virtJukebox.infoArchive);
 
 // Event listener for search
 searchButton.addEventListener('click', function() {
-virtJukebox.stopSong();
-// Clear songs and information
-virtJukebox.trackNum = 0;
-virtJukebox.infoArchive = [];
-virtJukebox.songArchive = [];
+  virtJukebox.stopSong();
+  // Clear songs and information
+  virtJukebox.trackNum = 0;
+  virtJukebox.infoArchive = [];
+  virtJukebox.songArchive = [];
 
-SC.get("/tracks/",{
-	q: artistInput.value
-}).then(function(response){
-  var songInfo = response;
+  virtJukebox = new Jukebox();
 
-  for(let i = 0; i < songInfo.length; i++) {
-    virtJukebox.infoArchive.push(songInfo[i]);
+  SC.get("/tracks/",{
+  	q: artistInput.value
+  }).then(function(response){
+    var songInfo = response;
 
-    sequence = sequence.then(function() {
-      return SC.stream("/tracks/" + songInfo[i].id).then(function(stream){
-        virtJukebox.songArchive.push(stream);
-        console.log(songInfo[i]);
+    for(let i = 0; i < songInfo.length; i++) {
+      virtJukebox.infoArchive.push(songInfo[i]);
+
+      sequence = sequence.then(function() {
+        return SC.stream("/tracks/" + songInfo[i].id).then(function(stream){
+          virtJukebox.songArchive.push(stream);
+          console.log(songInfo[i]);
+        })
       })
-    })
-  }
-})
+    }
+
+    sequence.then(function() {
+      console.log("lol");
+      virtJukebox.playCurrent();
+    });
+  });
+
+  console.log(virtJukebox);
+  console.log(virtJukebox.infoArchive);
+  console.log(virtJukebox.songArchive);
 });
 
 // Event listeners for the buttons to trigger the functions of the Jukebox object
