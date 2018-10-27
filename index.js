@@ -17,10 +17,7 @@ var songName = document.getElementById('songname');
 var artistName = document.getElementById('artistname');
 var scloudHeart = document.getElementById('scloudheart');
 var likesCount = document.getElementById('likescount');
-
 var progressbar = document.getElementById('progressbar');
-
-var player;
 
 // Jukebox class that holds an array of objects of information from the Soundcloud API
 class Jukebox {
@@ -33,15 +30,7 @@ class Jukebox {
   // Plays the current trackNum song
   playCurrent() {
     this.songArchive[this.trackNum].play();
-
-    // albumart.style.backgroundImage = "url(" + this.infoArchive[this.trackNum].artwork_url + ")";
-    // songName.innerText = this.infoArchive[this.trackNum].title;
-    // artistName.innerText = this.infoArchive[this.trackNum].user.username;
-    // scloudHeart.style.opacity = "1";
-    // likesCount.innerText = this.infoArchive[this.trackNum].likes_count;
-
     morphInfoArtwork(this);
-
     var that = this;
 
     that.songArchive[that.trackNum].on('time', function() {
@@ -94,22 +83,37 @@ class Jukebox {
 }
 
 function morphInfoArtwork(jukebox) {
-  albumart.style.backgroundImage = "url(" + jukebox.infoArchive[jukebox.trackNum].artwork_url + ")";
+  tempURL = jukebox.infoArchive[jukebox.trackNum].artwork_url;
+  tempURL = tempURL.replace('-large', '-t500x500');
+
+  albumart.style.backgroundImage = "url(" + tempURL + ")";
   songName.innerText = jukebox.infoArchive[jukebox.trackNum].title;
   artistName.innerText = jukebox.infoArchive[jukebox.trackNum].user.username;
   scloudHeart.style.opacity = "1";
   likesCount.innerText = jukebox.infoArchive[jukebox.trackNum].likes_count;
 }
 
-// function morphPlaylist(jukebox) {
-//   for(let i = 0; i < jukebox.infoArchive.length; i++) {
-//
-//
-//
-//   }
-//
-//
-// }
+function clearInfoArtwork(jukebox) {
+  albumart.style.backgroundImage = "";
+  songName.innerText = "";
+  artistName.innerText = "";
+  scloudHeart.style.opacity = "0";
+  likesCount.innerText = "";
+}
+
+function createSearchListing(jukebox, num) {
+  let tempTrackListing = document.createElement('div');
+
+  tempTrackListing.className = 'trackListing';
+  tempTrackListing.innerHTML = jukebox.infoArchive[num].title + " - " + jukebox.infoArchive[num].user.username;
+  tempTrackListing.addEventListener('click', function() {
+    jukebox.stopSong();
+    jukebox.trackNum = num;
+    jukebox.playCurrent();
+  })
+
+  $("#searchListingArea").append(tempTrackListing);
+}
 
 // Jukebox object created!
 var virtJukebox = new Jukebox();
@@ -137,7 +141,10 @@ console.log(virtJukebox.infoArchive);
 
 // Event listener for search
 searchButton.addEventListener('click', function() {
+  // Stop currently playing song, clear artwork and search listing area
   virtJukebox.stopSong();
+  clearInfoArtwork();
+  $("#searchListingArea").html("");
   // Clear songs and information
   virtJukebox.trackNum = 0;
   virtJukebox.infoArchive = [];
@@ -157,19 +164,24 @@ searchButton.addEventListener('click', function() {
         return SC.stream("/tracks/" + songInfo[i].id).then(function(stream){
           virtJukebox.songArchive.push(stream);
           console.log(songInfo[i]);
+
+          createSearchListing(virtJukebox, i)
+          // once the first song is loaded, play it!
+          // if(i == 0) {
+          //   virtJukebox.playCurrent();
+          // }
         })
       })
     }
 
-    sequence.then(function() {
-      console.log("lol");
-      virtJukebox.playCurrent();
-    });
+    // sequence.then(function() {
+    //   console.log("lol");
+    //   virtJukebox.playCurrent();
+    // });
   });
 
-  console.log(virtJukebox);
-  console.log(virtJukebox.infoArchive);
-  console.log(virtJukebox.songArchive);
+  console.log(JSON.stringify(virtJukebox));
+  console.log(virtJukebox)
 });
 
 // Event listeners for the buttons to trigger the functions of the Jukebox object
