@@ -82,6 +82,7 @@ class Jukebox {
   }
 }
 
+// changes the artwork and song information
 function morphInfoArtwork(jukebox) {
   tempURL = jukebox.infoArchive[jukebox.trackNum].artwork_url;
   tempURL = tempURL.replace('-large', '-t500x500');
@@ -90,9 +91,10 @@ function morphInfoArtwork(jukebox) {
   songName.innerText = jukebox.infoArchive[jukebox.trackNum].title;
   artistName.innerText = jukebox.infoArchive[jukebox.trackNum].user.username;
   scloudHeart.style.opacity = "1";
-  likesCount.innerText = jukebox.infoArchive[jukebox.trackNum].likes_count;
+  likesCount.innerText = jukebox.infoArchive[jukebox.trackNum].likes_count.toLocaleString();
 }
 
+// clears the artwork and song information
 function clearInfoArtwork(jukebox) {
   albumart.style.backgroundImage = "";
   songName.innerText = "";
@@ -101,16 +103,32 @@ function clearInfoArtwork(jukebox) {
   likesCount.innerText = "";
 }
 
+// Dynamically create the track listings based on search input
+// Each has a 'click' event listener to play that specific track
 function createSearchListing(jukebox, num) {
   let tempTrackListing = document.createElement('div');
-
   tempTrackListing.className = 'trackListing';
-  tempTrackListing.innerHTML = jukebox.infoArchive[num].title + " - " + jukebox.infoArchive[num].user.username;
+
+  let tempTrackSong = document.createElement('div');
+  tempTrackSong.className = 'trackSong';
+  tempTrackSong.innerHTML = jukebox.infoArchive[num].title;
+
+  let tempTrackArtist = document.createElement('div');
+  tempTrackArtist.className = 'trackArtist';
+  tempTrackArtist.innerHTML = jukebox.infoArchive[num].user.username;
+
+  tempTrackListing.append(tempTrackSong);
+  tempTrackListing.append(tempTrackArtist);
+
   tempTrackListing.addEventListener('click', function() {
     jukebox.stopSong();
     jukebox.trackNum = num;
     jukebox.playCurrent();
   })
+
+  // tempTrackListing.addEventListener('hover', function() {
+  //   tempTrackSong.style.color = "#F26422";
+  // })
 
   $("#searchListingArea").append(tempTrackListing);
 }
@@ -132,6 +150,8 @@ SC.get("/tracks/",{
       return SC.stream("/tracks/" + songInfo[i].id).then(function(stream){
         virtJukebox.songArchive.push(stream);
         console.log(songInfo[i]);
+
+        createSearchListing(virtJukebox, i);
       })
     })
   };
@@ -165,7 +185,7 @@ searchButton.addEventListener('click', function() {
           virtJukebox.songArchive.push(stream);
           console.log(songInfo[i]);
 
-          createSearchListing(virtJukebox, i)
+          createSearchListing(virtJukebox, i);
           // once the first song is loaded, play it!
           // if(i == 0) {
           //   virtJukebox.playCurrent();

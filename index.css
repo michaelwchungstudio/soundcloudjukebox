@@ -5,12 +5,7 @@
   font-family: 'Gotham';
   font-weight: 400;
   font-size: 13px;
-}
-
-@font-face {
-    font-family: "BebasNeue";
-    src: url("fonts/bebasneue.otf");
-    font-weight: normal;
+  color: #212121;
 }
 
 @font-face {
@@ -37,27 +32,6 @@
     font-weight: 600;
 }
 
-@font-face {
-  font-family: "FuturaStd";
-  src: url("fonts/FuturaStd-Book.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "FuturaStd";
-  src: url("fonts/FuturaStd-Light.otf") format("opentype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "FuturaStd";
-  src: url("fonts/FuturaStd-Bold.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-}
-
 /* Wrapper for entire page */
 .wrapper {
   display: grid;
@@ -68,20 +42,46 @@
 
 /* Wrapper for search section */
 .searchWrapper {
-  background-color: gray;
-  padding-top: 15px;
-  padding-left: 15px;
+  padding: 1.25rem 1.25rem;
+  /* border-right: 0.25rem solid #212121; */
 }
 
+/* Jukebox Title */
+#cloudTitle {
+  font-size: 3.5em;
+  font-weight: 500;
+  color: #F26422;
+}
+
+#boxTitle {
+  font-size: 1em;
+  font-weight: 500;
+  color: #212121;
+}
+
+#miniDescription {
+  font-size: 1.15em;
+  margin-top: 0.75rem;
+  padding-left: 40%;
+  padding-bottom: 2.75rem;
+  border-bottom: 1px solid #C7C7C7;
+}
+
+/* Search Input Area */
 #searchArea {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #C7C7C7;
 }
 
 #artistInput {
-  width: 26rem;
-  height: 2.5rem;
+  font-size: 1.1rem;
+  width: 30rem;
+  height: 3rem;
+  padding-left: 0.5rem;
+  border: 1px solid #C7C7C7;
 }
 
 #artistInput:focus {
@@ -90,9 +90,25 @@
   box-shadow: 0 0 10px #F26422;
 }
 
+#searchIcon {
+  display: inline-block;
+  background-image: url('img/searchGrey.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 2.4rem;
+  width: 2.4rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+#searchIcon:hover {
+  background-image: url('img/searchOrange.png');
+}
+
+/* Dynamically Created Track Listings */
 .trackListing {
-  font-size: 1.25em;
-  padding: 0.65rem 0;
+  padding: 1rem 1rem 0.8rem 1rem;
+  /* border-bottom: 1px solid #C7C7C7; */
   margin-right: 2.5rem;
   animation: fadein 1.25s;
   -moz-animation: fadein 1.25s;
@@ -103,11 +119,33 @@
   /* Opera */
 }
 
+.trackListing:first-child {
+  margin-top: 2rem;
+}
+
+.trackListing:last-child {
+  border-bottom: none;
+}
+
 .trackListing:hover {
-  font-weight: 500;
   cursor: pointer;
 }
 
+.trackListing:hover .trackSong {
+  color: #F26422;
+}
+
+.trackSong {
+  font-size: 1.35em;
+  font-weight: 500;
+}
+
+.trackArtist {
+  font-size: 1.15em;
+  margin-top: 0.5rem;
+}
+
+/* basic fadein animation */
 @keyframes fadein {
   from {
     opacity:0;
@@ -142,21 +180,6 @@
   to {
     opacity: 1;
   }
-}
-
-#searchIcon {
-  display: inline-block;
-  background-image: url('img/searchGrey.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  margin-left: 7.5px;
-}
-
-#searchIcon:hover {
-  background-image: url('img/searchOrange.png');
 }
 
 /* Wrapper grid of three rows for visual and song information */
@@ -259,16 +282,16 @@
   font-weight: 400;
 }
 
+#songname {
+  font-size: 1.75em;
+  font-weight: 500;
+  /* text-transform: uppercase; */
+  margin-bottom: 7.5px;
+}
+
 .songinfotext {
   margin: 3.5px auto;
   font-size: 1.25em;
-}
-
-#songname {
-  font-size: 1.55em;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin-bottom: 7.5px;
 }
 
 #scloudheart {
