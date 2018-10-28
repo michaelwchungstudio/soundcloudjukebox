@@ -85,9 +85,14 @@ class Jukebox {
 // changes the artwork and song information
 function morphInfoArtwork(jukebox) {
   tempURL = jukebox.infoArchive[jukebox.trackNum].artwork_url;
-  tempURL = tempURL.replace('-large', '-t500x500');
+  if(tempURL !== null) {
+    tempURL = tempURL.replace('-large', '-t500x500');
+    albumart.style.backgroundImage = "url(" + tempURL + ")";
+  }
+  else {
+    albumart.style.backgroundImage = "none";
+  }
 
-  albumart.style.backgroundImage = "url(" + tempURL + ")";
   songName.innerText = jukebox.infoArchive[jukebox.trackNum].title;
   artistName.innerText = jukebox.infoArchive[jukebox.trackNum].user.username;
   scloudHeart.style.opacity = "1";
