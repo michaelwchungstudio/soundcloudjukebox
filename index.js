@@ -1,6 +1,6 @@
 // API initialization using client_id
 SC.initialize({
-    client_id: id
+    client_id: soundcloud_client_id
 });
 
 // Establishing variables linking to HTML elements
@@ -19,6 +19,8 @@ var scloudHeart = document.getElementById('scloudheart');
 var likesCount = document.getElementById('likescount');
 var progressbar = document.getElementById('progressbar');
 
+let currAudio = new Audio();
+
 // Jukebox class that holds an array of objects of information from the Soundcloud API
 class Jukebox {
   constructor() {
@@ -29,7 +31,9 @@ class Jukebox {
 
   // Plays the current trackNum song
   playCurrent() {
+    changeAVSource(this.songArchive[this.trackNum]);
     this.songArchive[this.trackNum].play();
+    // this.songArchive[this.trackNum].play();
     morphInfoArtwork(this);
     var that = this;
 
@@ -40,6 +44,11 @@ class Jukebox {
     that.songArchive[that.trackNum].on('finish', function() {
       that.nextSong();
     });
+  }
+
+  // Retrieves the current song
+  retrieveCurrent() {
+    return this.songArchive[this.trackNum];
   }
 
   // stops the current song, changes the track number (--), plays that track using playCurrent() function
@@ -147,6 +156,7 @@ SC.get("/tracks/",{
 	q: 'taquwami'
 }).then(function(response){
   var songInfo = response;
+  console.log(songInfo);
 
   for(let i = 0; i < songInfo.length; i++) {
     virtJukebox.infoArchive.push(songInfo[i]);
@@ -229,3 +239,63 @@ pausebutton.addEventListener('click', function() {
 stopbutton.addEventListener('click', function() {
   virtJukebox.stopSong();
 });
+
+// Initializes the audiovisualizer
+// window.addEventListener('load', initializeAV, false);
+
+// Audiovisualization
+
+// AV variables
+var avCanvas = document.getElementById('avCanvas');
+var ctx, source, context, analyser, frequency_array, bars, bar_x, bar_width, bar_height;
+
+bars = 250;
+ctx = avCanvas.getContext("2d");
+
+function initializeAV() {
+  context = context || new AudioContext();
+  analyser = context.createAnalyser();
+  source = source || context.createMediaElementSource(currAudio);
+  source.connect(analyser);
+  analyser.connect(context.destination);
+
+  avLooper();
+}
+
+// *******
+function changeAVSource(jukeboxSong) {
+  console.log(jukeboxSong);
+  source = context.createMediaElementSource(jukeboxSong);
+}
+
+function avLooper() {
+  window.requestAnimationFrame(avLooper);
+  frequency_array = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(frequency_array);
+  ctx.clearRect(0, 0, avCanvas.width, avCanvas.height);
+  ctx.fillStyle = '#F26422';
+
+  for(let i = 0; i < bars; i++) {
+    bar_x = i * 5;
+    bar_width = 2;
+    bar_height = -(frequency_array[i]);
+    ctx.fillRect(bar_x, avCanvas.height, bar_width, bar_height);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

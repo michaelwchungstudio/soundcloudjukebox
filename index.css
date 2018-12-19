@@ -108,7 +108,6 @@
 /* Dynamically Created Track Listings */
 .trackListing {
   padding: 1rem 1rem 0.8rem 1rem;
-  /* border-bottom: 1px solid #C7C7C7; */
   margin-right: 2.5rem;
   animation: fadein 1.25s;
   -moz-animation: fadein 1.25s;
@@ -154,6 +153,7 @@
     opacity:1;
   }
 }
+
 @-moz-keyframes fadein {
   /* Firefox */
   from {
@@ -163,6 +163,7 @@
     opacity:1;
   }
 }
+
 @-webkit-keyframes fadein {
   /* Safari and Chrome */
   from {
@@ -172,6 +173,7 @@
     opacity:1;
   }
 }
+
 @-o-keyframes fadein {
   /* Opera */
   from {
@@ -285,7 +287,6 @@
 #songname {
   font-size: 1.75em;
   font-weight: 500;
-  /* text-transform: uppercase; */
   margin-bottom: 7.5px;
 }
 
@@ -384,4 +385,13 @@
   background-image: url("icons/md-pause.svg");
   height: 30px;
   width: 30px;
+}
+
+/* Audiovisualization */
+#avCanvas {
+  display: block;
+  height: 450px;
+  width: 1400px;
+  border: 1px solid;
+  margin: 100px auto;
 }
