@@ -188,13 +188,13 @@
 .infoWrapper {
   min-width: 800px;
   display: grid;
-  grid-template-rows: 1.1fr 0.13fr 0.15fr 0.2fr
+  grid-template-rows: 1.1fr 0.2fr 0.2fr 0.2fr
 }
 
 /* Row 1: Album Art + back/next buttons */
 .albumsec {
   display: grid;
-  grid-template-columns: 0.2fr 1fr 0.2fr;
+  grid-template-columns: 0.3fr 1fr 0.3fr;
 }
 
 .column {
@@ -214,13 +214,57 @@
 
 #vinylcircle {
   display: flex;
-  height: 33vw;
-  width: 33vw;
+  position: relative;
+  height: 29vw;
+  width: 29vw;
   background-color: black;
   border-radius: 50%;
   box-shadow: 1px 1px 1px 1px black;
   justify-content: center;
   align-items: center;
+}
+
+.qcircle {
+  position: absolute;
+  border-radius: 50%;
+  background-color:transparent;
+  border: 2px solid transparent;
+}
+
+#tqcircle1 {
+  height: 26vw;
+  width: 26vw;
+  border-top-color: white;
+}
+
+#tqcircle2 {
+  height: 21vw;
+  width: 21vw;
+  border-top-color: white;
+}
+
+#tqcircle3 {
+  height: 16vw;
+  width: 16vw;
+  border-top-color: white;
+}
+
+#bqcircle1 {
+  height: 26vw;
+  width: 26vw;
+  border-bottom-color: white;
+}
+
+#bqcircle2 {
+  height: 21vw;
+  width: 21vw;
+  border-bottom-color: white;
+}
+
+#bqcircle3 {
+  height: 16vw;
+  width: 16vw;
+  border-bottom-color: white;
 }
 
 #albumart {
@@ -237,6 +281,75 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.vSpin {
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+
+  -moz-animation-name: spin;
+  -moz-animation-duration: 4000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+
+  -ms-animation-name: spin;
+  -ms-animation-duration: 4000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.vSpinPause {
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -ms-animation-play-state: paused;
+}
+
+/* basic spin animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  /* Firefox */
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  /* Safari and Chrome */
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spin {
+  /* Opera */
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #vinylhole {
@@ -278,14 +391,34 @@
   background-image: url("icons/ios-arrow-dropright-circle.svg");
 }
 
-/* Section 2: Song Information */
+/* Section 2: Audiovisualization */
+#avCanvas {
+  display: block;
+  height: 75px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 0 15px;
+  border-bottom: 1px solid;
+}
+
+.progressbarsec {
+  display: flex;
+  justify-content: center;
+}
+
+/* #progressbar {
+  margin-top: 3vh;
+  width: 35rem;
+} */
+
+/* Section 3: Song Information */
 .songinfosec {
   text-align: center;
   font-weight: 400;
 }
 
 #songname {
-  font-size: 1.75em;
+  font-size: 1.6em;
   font-weight: 500;
   margin-bottom: 7.5px;
 }
@@ -310,16 +443,6 @@
   font-style: italic;
   display: inline-block;
   padding-top: 3px;
-}
-
-.progressbarsec {
-  display: flex;
-  justify-content: center;
-}
-
-#progressbar {
-  margin-top: 3vh;
-  width: 35rem;
 }
 
 /* STOP // PLAY // PAUSE buttons */
@@ -385,14 +508,4 @@
   background-image: url("icons/md-pause.svg");
   height: 30px;
   width: 30px;
-}
-
-/* Audiovisualization */
-#avCanvas {
-  display: block;
-  height: 450px;
-  width: 600px;
-  border: 1px solid;
-  margin: 100px auto;
-  padding: 25px;
 }

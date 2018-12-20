@@ -30,6 +30,12 @@
           <!-- Center column holds the vinyl elements and the dynamic album art -->
           <div id='vinylsec'>
             <div id='vinylcircle'>
+              <div class='qcircle' id='tqcircle1'></div>
+              <div class='qcircle' id='tqcircle2'></div>
+              <div class='qcircle' id='tqcircle3'></div>
+              <div class='qcircle' id='bqcircle1'></div>
+              <div class='qcircle' id='bqcircle2'></div>
+              <div class='qcircle' id='bqcircle3'></div>
               <div id='albumart'>
                 <div id='vinylhole'></div>
               </div>
@@ -41,18 +47,20 @@
           </div>
         </div>
 
-        <!-- Row 2: Song Information -->
+        <!-- Row 2: Visualizer (to be fixed: progress bar - scrubbable) -->
+        <div class='progressbarsec'>
+          <canvas id="avCanvas"></canvas>
+          <!-- <div id="progressbar"><span id="progress"></span></div> -->
+        </div>
+
+        <!-- Row 3: Song Information -->
         <div class='songinfosec'>
           <h2 class='songinfotext' id='songname'></h2>
           <h2 class='songinfotext' id='artistname'></h2>
           <img class='songinfotext' id='scloudheart' src="img/soundcloudHeart.jpg"></img><h2 class='songinfotext' id='likescount'></h2>
         </div>
 
-        <div class='progressbarsec'>
-          <progress id="progressbar" value="0" max="1"></progress>
-        </div>
-
-        <!-- Row 3: "STOP // PLAY // PAUSE" -->
+        <!-- Row 4: "STOP // PLAY // PAUSE" -->
         <div class='controlsec'>
           <div class='iconcircle' id='circleL'>
             <div class='controlicons' id='stopbutton'></div>
@@ -65,10 +73,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class='avTesting'>
-      <canvas id="avCanvas"></canvas>
     </div>
 
     <script type="text/javascript" src="initialize.js"></script>
