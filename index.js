@@ -3,6 +3,10 @@ SC.initialize({
     client_id: soundcloud_client_id
 });
 
+// AV Testing
+var audio = new Audio();
+audio.src = 'fineshrine.mp3';
+
 // Establishing variables linking to HTML elements
 var artistInput = document.getElementById('artistInput');
 var searchButton = document.getElementById('searchIcon');
@@ -19,7 +23,9 @@ var scloudHeart = document.getElementById('scloudheart');
 var likesCount = document.getElementById('likescount');
 var progressbar = document.getElementById('progressbar');
 
+// Audio object for page -> connected to visualizer
 let currAudio = new Audio();
+currAudio.crossOrigin = "anonymous";
 
 // Jukebox class that holds an array of objects of information from the Soundcloud API
 class Jukebox {
@@ -27,28 +33,32 @@ class Jukebox {
     this.infoArchive = [];
     this.songArchive = [];
     this.trackNum = 0;
+    this.paused = false;
   }
 
   // Plays the current trackNum song
   playCurrent() {
-    changeAVSource(this.songArchive[this.trackNum]);
-    this.songArchive[this.trackNum].play();
+    if (this.paused == true) {
+      this.paused = false;
+      currAudio.play();
+    }
+    else {
+      this.paused = false;
+      currAudio.src = this.infoArchive[this.trackNum].stream_url + "?client_id=" + soundcloud_client_id;
+      currAudio.play();
+    }
+
+    var that = this;
     // this.songArchive[this.trackNum].play();
     morphInfoArtwork(this);
-    var that = this;
 
-    that.songArchive[that.trackNum].on('time', function() {
-      progressbar.value = (that.songArchive[that.trackNum].currentTime() / that.songArchive[that.trackNum].getDuration());
-    })
-
-    that.songArchive[that.trackNum].on('finish', function() {
-      that.nextSong();
-    });
-  }
-
-  // Retrieves the current song
-  retrieveCurrent() {
-    return this.songArchive[this.trackNum];
+    // currAudio.on('timeupdate', function() {
+    //   progressbar.value = (that.songArchive[that.trackNum].currentTime() / that.songArchive[that.trackNum].getDuration());
+    // })
+    //
+    // currAudio.on('finish', function() {
+    //   that.nextSong();
+    // });
   }
 
   // stops the current song, changes the track number (--), plays that track using playCurrent() function
@@ -81,13 +91,14 @@ class Jukebox {
 
   // pauses the current song and sets the current time to zero
   stopSong() {
-    this.songArchive[this.trackNum].pause();
-    this.songArchive[this.trackNum].seek(0);
+    currAudio.pause();
+    currAudio.currentTime = 0;
   }
 
   // pauses the current song (pressing play after will resume!)
   pauseSong() {
-    this.songArchive[this.trackNum].pause();
+    this.paused = true;
+    currAudio.pause();
   }
 }
 
@@ -241,15 +252,14 @@ stopbutton.addEventListener('click', function() {
 });
 
 // Initializes the audiovisualizer
-// window.addEventListener('load', initializeAV, false);
+window.addEventListener('load', initializeAV, false);
 
 // Audiovisualization
 
 // AV variables
 var avCanvas = document.getElementById('avCanvas');
-var ctx, source, context, analyser, frequency_array, bars, bar_x, bar_width, bar_height;
-
-bars = 250;
+var ctx, source, context, analyser, frequency_array, bar_x, bar_width, bar_height;
+var bars = 250;
 ctx = avCanvas.getContext("2d");
 
 function initializeAV() {
@@ -262,23 +272,17 @@ function initializeAV() {
   avLooper();
 }
 
-// *******
-function changeAVSource(jukeboxSong) {
-  console.log(jukeboxSong);
-  source = context.createMediaElementSource(jukeboxSong);
-}
-
 function avLooper() {
   window.requestAnimationFrame(avLooper);
   frequency_array = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(frequency_array);
   ctx.clearRect(0, 0, avCanvas.width, avCanvas.height);
-  ctx.fillStyle = '#F26422';
+  ctx.fillStyle = '#00CCFF';
 
   for(let i = 0; i < bars; i++) {
-    bar_x = i * 5;
-    bar_width = 2;
-    bar_height = -(frequency_array[i]);
+    bar_x = i * 3;
+    bar_width = 1;
+    bar_height = -(frequency_array[i] / 4);
     ctx.fillRect(bar_x, avCanvas.height, bar_width, bar_height);
   }
 }

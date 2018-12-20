@@ -391,7 +391,8 @@
 #avCanvas {
   display: block;
   height: 450px;
-  width: 1400px;
+  width: 600px;
   border: 1px solid;
   margin: 100px auto;
+  padding: 25px;
 }
