@@ -42,7 +42,9 @@
 
 /* Wrapper for search section */
 .searchWrapper {
-  padding: 1.25rem 1.25rem;
+  display: flex;
+  flex-flow: column;
+  padding: 1.25rem 0 1.25rem 1.25rem;
   /* border-right: 0.25rem solid #212121; */
 }
 
@@ -103,6 +105,15 @@
 
 #searchIcon:hover {
   background-image: url('img/searchOrange.png');
+}
+
+#searchListingArea {
+  height: 100%;
+  overflow: scroll;
+}
+
+#searchListingArea::-webkit-scrollbar {
+  appearance: scrollbartrack-vertical;
 }
 
 /* Dynamically Created Track Listings */
@@ -395,7 +406,7 @@
 /* Section 2: Audiovisualization */
 #avCanvas {
   display: block;
-  height: 75px;
+  height: 85px;
   width: 60%;
   margin: 0 auto;
   padding: 0 15px;

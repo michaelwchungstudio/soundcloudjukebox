@@ -329,7 +329,7 @@ function avLooper() {
   for(let i = 0; i < bars; i++) {
     bar_x = i * 2;
     bar_width = 1;
-    bar_height = -(frequency_array[i] / 1.9);
+    bar_height = -(frequency_array[i] / 1.8);
     ctx.fillRect(bar_x, avCanvas.height, bar_width, bar_height);
   }
 }
