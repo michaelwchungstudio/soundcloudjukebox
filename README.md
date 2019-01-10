@@ -1,8 +1,8 @@
+![Site Example](/siteimg/siteexample.png)
+
 # 'Cloud Box
 
 Virtual jukebox with audiovisualizer implementing the SoundCloud API.
-
-![Site Example](/siteimg/siteexample.png)
 
 ## How To Use
 
