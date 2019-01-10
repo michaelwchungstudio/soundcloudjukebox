@@ -1,12 +1,14 @@
-# Cloud Box
+# 'Cloud Box
 
-Virtual jukebox implementing the SoundCloud API.
+Virtual jukebox with audiovisualizer implementing the SoundCloud API.
 
-## How to use
+![Site Example](/siteimg/siteexample.png)
 
-On load, Cloud Box has a preset track list based on searching for the artist 'Taquwami'. The user can choose to play
+## How To Use
 
-EDIT
+On load, 'Cloud Box has a preset track list based on searching for the artist 'Taquwami'. The user can search for an artist or song, generating a list of results based off SoundCloud's SC.get function. From here, the user has multiple options. Upon search, the first track result will be loaded into the virtual jukebox, and can be played by selecting the play button. Any individual result may also be selected in order to play that specific song. Songs can also be cycled through using the left and right arrow buttons. When a song is playing, the vinyl representation should spin and the audiovisualizer below will reflect that song's dynamic audio frequency levels. The jukebox has both a pause and stop button. Stopping a song will essentially pause the song and set the track's current time to zero, thus starting from the beginning again upon play.
+
+All track information - artist, song, likes - is drawn from the SoundCloud API.
 
 ## Built With
 
@@ -23,5 +25,5 @@ EDIT
 
 * SoundCloud
 * Oggi Danailov
-* NYCDA
+* New York Code & Design Academy
 * StackOverflow
