@@ -16,6 +16,17 @@ Playing and cycling through songs:
 Searching and playing a song:
 ![Site In Action 2](/siteimg/scloudprev2.gif)
 
+## Future Improvements / Bug Fixes
+
+SoundCloud does not currently accept [new registrations](http://soundcloud.com/you/apps/new) for applications implementing their API. This project uses an API key provided by my instructor. It is generally considered bad practice to include this API key in front end code. Typically, such information would be kept in a file that a web server might access. In this case, my file containing the API key is included in .gitignore and is not shown. This renders the GitHub Page for this project useless as there is no connection to SoundCloud's API.
+
+Potential future functions to add:
+ - pasting a direct SoundCloud link in the input area will play that specific song (needed: a check to see if the input is a link in order to ignore SC.get)
+ - additional audiovisualization options (radial, various geometric shapes, wider variety of color changes)
+ - slider for volume
+ - slider for scrubbing through the song
+ - add back end using possibly Python or Ruby on Rails in order to allow users to sign up and create playlists by adding searched songs
+
 ## Built With
 
 * HTML
