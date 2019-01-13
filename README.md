@@ -10,6 +10,8 @@ On load, 'Cloud Box has a preset track list based on searching for the artist 'T
 
 All track information - artist, song, likes - is drawn from the SoundCloud API.
 
+![Site In Action](/siteimg/soundcloudjukeboxprev.gif)
+
 ## Built With
 
 * HTML
