@@ -11,9 +11,11 @@ On load, 'Cloud Box has a preset track list based on searching for the artist 'T
 All track information - artist, song, likes - is drawn from the SoundCloud API.
 
 Playing and cycling through songs:
+
 ![Site In Action 1](/siteimg/scloudprev1.gif)
 
 Searching and playing a song:
+
 ![Site In Action 2](/siteimg/scloudprev2.gif)
 
 ## Future Improvements / Bug Fixes
